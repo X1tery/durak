@@ -13,7 +13,9 @@ target_sources(durak
 PRIVATE
     src/main.cpp
     src/headers/client.hpp
+    src/headers/const.hpp
     src/code/client.cpp
+    src/code/const.cpp
 )
 
 add_executable(durak-serv)
@@ -23,10 +25,14 @@ PRIVATE
     src/main-serv.cpp
     src/headers/game.hpp
     src/headers/player.hpp
+    src/headers/card.hpp
     src/headers/server.hpp
-    src/headers/error.hpp
+    src/headers/utils.hpp
+    src/headers/const.hpp
     src/code/game.cpp
     src/code/player.cpp
+    src/code/card.cpp
     src/code/server.cpp
-    src/code/error.cpp
+    src/code/utils.cpp
+    src/code/const.cpp
 )

@@ -1,38 +1,29 @@
 #pragma once
 #include <player.hpp>
+#include <card.hpp>
 #include <vector>
+#include <string>
 #include <unordered_map>
 #include <deque>
-
-int toVal(std::string sym);
-char toSym(int val);
-
-enum suits {
-    DIAMONDS,
-    CLUBS,
-    HEARTS,
-    SPADES
-};
-
-std::unordered_map<suits, char32_t> symbols {
-    {DIAMONDS, '♦'},
-    {CLUBS, '♣'},
-    {HEARTS, '♥'},
-    {SPADES, '♠'}
-};
-
-struct Card {
-    suits suit;
-    int value;
-    // set 5th bit of value for trump
-    Card(std::string _value, suits suit);
-};
+#include <mutex>
 
 struct Game {
-    std::vector<Player> plrs;
+    Game(std::vector<Player*> _plrs, std::mutex* _end_mutex);
+    void draw();
+    void place(Player* who, Card card);
+    void endTurn(Player* loser = nullptr);
+    void shout(std::string msg);
+    void action(Player* who, std::string msg);
+    void disconnect(Player* who);
+    void end();
+    std::mutex* end_mutex;
+    std::vector<Player*> plrs;
     std::deque<Card> deck;
+    std::deque<Card> table;
+    Card trump_card;
     suits trump;
-    int turnno;
-    Player plrturn;
-    Game(std::vector<Player> _plrs);
+    int roundno;
+    int plrturn;
+    int plratt;
+    int plrdef;
 };
