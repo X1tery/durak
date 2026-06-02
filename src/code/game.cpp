@@ -60,6 +60,9 @@ void Game::endTurn(Player* loser) {
     if (loser == nullptr) {
         shout("BEAT!");
         table.clear();
+        plratt = (plratt + 1) % PLR_COUNT;
+        plrdef = (plratt + 1) % PLR_COUNT;
+        plrturn = plratt;
     } else {
         shout(std::format("{} LOST THE ATTACK!", loser->getName()));
         std::string msg{"DRAWN"};
@@ -71,6 +74,9 @@ void Game::endTurn(Player* loser) {
         }
         msg.push_back('\n');
         loser->sendmsg(msg);
+        plratt = (plrdef + 1) % PLR_COUNT;
+        plrdef = (plratt + 1) % PLR_COUNT;
+        plrturn = plratt;
     }
     if (plrs[plratt]->hand.size() == 0 && deck.size() == 0) {
         PLR_COUNT--;
@@ -86,12 +92,11 @@ void Game::endTurn(Player* loser) {
     if (PLR_COUNT == 1) {
         plrs[0]->sendmsg("lose\n");
         end();
+        return;
     } else if (PLR_COUNT == 0) {
         end();
+        return;
     }
-    plratt = (plratt + 1) % PLR_COUNT;
-    plrdef = (plratt + 1) % PLR_COUNT;
-    plrturn = plratt;
     draw();
     shout(std::format("{} ATTACKS {}", plrs[plratt]->getName(), plrs[plrdef]->getName()));
     plrs[plrturn]->sendmsg("YOUR TURN!\n");
