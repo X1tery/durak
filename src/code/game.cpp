@@ -141,6 +141,9 @@ void Game::action(Player* who, std::string msg) {
                     who->sendmsg(std::format("LEFT IN THE DECK {}\n", deck.size()));
                 else
                     who->sendmsg("THE DECK HAS BEEN DEPLETED!\n");
+            } else if (msg == "/turn") {
+                who->sendmsg(std::format("TURN OF {}\n", plrs[plrturn]->getName()));
+                who->sendmsg(std::format("{} ATTACKS {}\n", plrs[plratt]->getName(), plrs[plrdef]->getName()));
             } else if (msg == "/info") {
                 std::string your_cards{"HAND"};
                 for (Card card : who->hand)
@@ -164,6 +167,8 @@ void Game::action(Player* who, std::string msg) {
                     who->sendmsg(std::format("LEFT IN THE DECK {}\n", deck.size()));
                 else
                     who->sendmsg("THE DECK HAS BEEN DEPLETED!\n");
+                who->sendmsg(std::format("TURN OF {}\n", plrs[plrturn]->getName()));
+                who->sendmsg(std::format("{} ATTACKS {}\n", plrs[plratt]->getName(), plrs[plrdef]->getName()));
             } else if (msg.size() > 7 && msg.substr(0, 6) == "/place") {
                 if (plrs[plrturn] == who) {
                     Card pcard{msg.substr(7)};

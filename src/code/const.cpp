@@ -12,6 +12,7 @@ const std::unordered_set<std::string> ACTIONS{
     "/table",
     "/trump",
     "/left",
+    "/turn",
     "/info",
     "/place",
     "/beat",
@@ -24,6 +25,7 @@ const std::string HELP_MSG{
     "/table - Shows the cards on the table\n"
     "/trump - Shows the trump card\n"
     "/left - Shows how many cards are left\n"
+    "/turn - Shows whose turn is it\n"
     "/info - Shows general info about the current game\n"
     "/place - Places a card on the table\n"
     "/beat - Gives up your attack\n"
